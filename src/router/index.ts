@@ -17,6 +17,16 @@ const routes = [
         component: () => import('../views/Login.vue')
     },
     {
+        path: '/signup',
+        name: 'Signup',
+        component: () => import('../views/Register.vue')
+    },
+    {
+        path: '/admin',
+        name: 'Admin',
+        component: () => import('../views/Admin/Dashboard.vue')
+    },
+    {
         path: '/:catchAll(.*)',
         name: 'Error',
         component: () => import('../views/Error.vue')

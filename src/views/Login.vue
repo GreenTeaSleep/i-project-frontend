@@ -12,7 +12,7 @@
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
               <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email"/>
+                <input type="text" id="typeUsernameX" class="form-control form-control-lg" placeholder="Username"/>
               </div>
 
               <div class="form-outline form-white mb-4">
