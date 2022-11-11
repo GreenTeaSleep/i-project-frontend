@@ -1,0 +1,1 @@
+import{_ as s,c as a,b as e,g as t,h as n,w as r,F as c,i as _,o as l}from"./index.92ba76c1.js";const i={},p=e("h2",null,"404 Page",-1),u=e("p",null,"This is a 404 page",-1);function d(h,m){const o=_("router-link");return l(),a(c,null,[p,u,e("p",null,[t("Visit home page "),n(o,{to:"/"},{default:r(()=>[t("here")]),_:1})])],64)}const g=s(i,[["render",d]]);export{g as default};
