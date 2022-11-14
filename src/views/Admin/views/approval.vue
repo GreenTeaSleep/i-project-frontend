@@ -15,7 +15,7 @@
             </p>
             |
             <p class="text-center" style="width: 100px; display: inline-block">
-              ลบ
+              ไม่อนุมัติ
             </p>
           </th>
         </tr>
@@ -38,6 +38,9 @@
               type="button"
               class="btn btn-outline-secondary"
               style="width: 100px"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@mdo"
             >
               <font-awesome-icon icon="fa-solid fa-circle-info" />
             </button>
@@ -47,19 +50,24 @@
               class="btn btn-outline-danger"
               style="width: 100px"
             >
-              <font-awesome-icon icon="fa-solid fa-trash" />
+              <font-awesome-icon icon="fa-solid fa-circle-xmark" />
             </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <Model />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import Model from "./components/Model.vue"
 
 export default defineComponent({
+  components: {
+    Model,
+  },
   data() {
     return {
       product_type: [
