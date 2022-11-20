@@ -41,6 +41,7 @@
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               data-bs-whatever="@mdo"
+              :to="{ name: 'Admin', params: { id: 1 } }"
             >
               <font-awesome-icon icon="fa-solid fa-circle-info" />
             </button>

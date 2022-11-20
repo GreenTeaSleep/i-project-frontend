@@ -27,6 +27,10 @@ const routes = [
         component: () => import('../views/Admin/Dashboard.vue')
     },
     {
+        path: '/admin/:id',
+        component: () => import('../views/Admin/views/components/Model.vue')
+    },
+    {
         path: '/:catchAll(.*)',
         name: 'Error',
         component: () => import('../views/Error.vue')
