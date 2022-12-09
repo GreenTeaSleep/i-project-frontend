@@ -7,6 +7,7 @@ import {
     faSquareCheck,
     faCircleInfo,
     faCircleXmark,
+    faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -15,7 +16,8 @@ library.add(
     faToggleOn,
     faSquareCheck,
     faCircleInfo,
-    faCircleXmark
+    faCircleXmark,
+    faUser
 );
 
 export default FontAwesomeIcon;
