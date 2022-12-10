@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="text-end">
+      <a type="button" href="/admin/create-commu" class="btn btn-primary">
+        เพิ่มวิสาหกิจชุมชน <font-awesome-icon icon="fa-solid fa-plus" />
+      </a>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -8,17 +13,34 @@
           <th scope="col">Editor</th>
         </tr>
       </thead>
-      <tbody v-for="(item, index) in product_type">
+      <tbody v-for="(item, index) in commu">
         <!-- https://getbootstrap.com/docs/5.2/utilities/vertical-align/ -->
         <tr class="align-middle">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ item }}</td>
+          <td>{{ item.commu_name }}</td>
           <td>
-            <button type="button" class="btn btn-outline-success">
+            <button
+              v-if="Number(item.confirm_status) === 1"
+              @click="test(item.confirm_status, item.id)"
+              type="button"
+              class="btn btn-outline-success"
+            >
               <font-awesome-icon icon="fa-solid fa-toggle-on" />
             </button>
+            <button
+              v-else
+              @click="test(item.confirm_status, item.id)"
+              type="button"
+              class="btn btn-outline-danger"
+            >
+              <font-awesome-icon icon="fa-solid fa-toggle-off" />
+            </button>
             |
-            <button type="button" class="btn btn-outline-secondary">
+            <button
+              type="button"
+              @click="editData(item.id)"
+              class="btn btn-outline-secondary"
+            >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
           </td>
@@ -29,17 +51,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from "vue";
+import axios from "../../../services/axios";
 
 export default defineComponent({
   data() {
     return {
-      product_type: [
-        "การเกษตรตำบลบางสวรรค์",
-        "กลุ่มแม่บ้านเกษตรกรพ่อตาหินช้าง",
-        "กลุ่มแปรรูปผลิตภัณฑ์การเกษตรตำบลน้ำชำ",
-      ],
-    }
+      commu: [],
+    };
   },
-})
+  methods: {
+    editData(id: number) {
+      this.$router.push("/admin/edit-commu/" + id.toString());
+    },
+    async test(id: number, id2: number) {
+      console.log(id2);
+      if (id == 1) {
+        const result = await axios.put("/api/commu/" + id2, {
+          confirm_status: 2,
+        });
+        console.log(result);
+      } else {
+        const result = await axios.put("/api/commu/" + id2, {
+          confirm_status: 1,
+        });
+        console.log(result);
+      }
+      this.$router.go(0);
+    },
+  },
+  async mounted() {
+    const result = await axios.get("/api/commu/confirmed");
+
+    this.commu = result.data;
+    // alert(typeof this.product_type);
+  },
+});
 </script>

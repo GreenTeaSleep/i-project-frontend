@@ -4,20 +4,24 @@ import {
     faPenToSquare,
     faTrash,
     faToggleOn,
+    faToggleOff,
     faSquareCheck,
     faCircleInfo,
     faCircleXmark,
     faUser,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
     faPenToSquare,
     faTrash,
     faToggleOn,
+    faToggleOff,
     faSquareCheck,
     faCircleInfo,
     faCircleXmark,
-    faUser
+    faUser,
+    faPlus,
 );
 
 export default FontAwesomeIcon;

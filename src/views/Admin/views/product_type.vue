@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="text-end">
+      <a
+        type="button"
+        href="/admin/create-product-type"
+        class="btn btn-primary"
+      >
+        เพิ่มประเภท <font-awesome-icon icon="fa-solid fa-plus" />
+      </a>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -12,13 +21,21 @@
         <!-- https://getbootstrap.com/docs/5.2/utilities/vertical-align/ -->
         <tr class="align-middle">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ item }}</td>
+          <td>{{ item.title }}</td>
           <td>
-            <button type="button" class="btn btn-outline-secondary">
+            <button
+              type="button"
+              @click="editData(item.id)"
+              class="btn btn-outline-secondary"
+            >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
             |
-            <button type="button" class="btn btn-outline-danger">
+            <button
+              @click="deleteData(item.id)"
+              type="button"
+              class="btn btn-outline-danger"
+            >
               <font-awesome-icon icon="fa-solid fa-trash" />
             </button>
           </td>
@@ -29,32 +46,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from "vue";
+import axios from "../../../services/axios";
 
 export default defineComponent({
   data() {
     return {
-      product_type: [
-        "การผลิตพืช",
-        "การผลิตปศุสัตว์",
-        "การผลิตประมง",
-        "การแปรรูปและผลิตภัณฑ์อาหาร",
-        "ผลิตภัณฑ์ผ้าทอ/เสื้อผ้า",
-        "เครื่องจักสาน",
-        "ดอกไม้ประดิษฐ์",
-        "เครื่องจักรกล",
-        "ของชำร่วย",
-        "ผลิตภัณฑ์สมุนไพร",
-        "เครื่องดื่ม",
-        "เครื่องประดับ/อัญมณี",
-        "เครื่องไม้/เฟอร์นิเจอร์",
-        "เครื่องหนัง",
-        "การผลิตปัจจัยการผลิต",
-        "เครื่องปั้น",
-        "สิ่งประดิษฐ์จากโลหะ",
-        "การผลิตสินค้าอื่นๆ",
-      ],
-    }
+      product_type: [],
+    };
   },
-})
+  methods: {
+    async deleteData(id: number) {
+      if (confirm("You want to delete the data right?") === true) {
+        const result = await axios.delete("/api/product-type/" + id.toString());
+        this.$router.go(0);
+      }
+    },
+    async editData(id: number) {
+      this.$router.push("/admin/edit-product-type/" + id.toString());
+    },
+  },
+  async mounted() {
+    const result = await axios.get("/api/product-type");
+    this.product_type = result.data;
+    // alert(typeof this.product_type);
+  },
+});
 </script>

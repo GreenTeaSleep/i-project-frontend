@@ -38,9 +38,6 @@
               type="button"
               class="btn btn-outline-secondary"
               style="width: 100px"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              data-bs-whatever="@mdo"
               :to="{ name: 'Admin', params: { id: 1 } }"
             >
               <font-awesome-icon icon="fa-solid fa-circle-info" />
@@ -58,17 +55,13 @@
       </tbody>
     </table>
   </div>
-  <Model />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import Model from "./components/Model.vue"
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: {
-    Model,
-  },
+  components: {},
   data() {
     return {
       product_type: [
@@ -76,7 +69,7 @@ export default defineComponent({
         "กลุ่มแม่บ้านเกษตรกรพ่อตาหินช้าง",
         "กลุ่มแปรรูปผลิตภัณฑ์การเกษตรตำบลน้ำชำ",
       ],
-    }
+    };
   },
-})
+});
 </script>

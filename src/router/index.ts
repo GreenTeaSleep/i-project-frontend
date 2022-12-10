@@ -27,8 +27,24 @@ const routes = [
         component: () => import('../views/Admin/Dashboard.vue')
     },
     {
-        path: '/admin/:id',
-        component: () => import('../views/Admin/views/components/Model.vue')
+        path: '/admin/create-product-type',
+        name: 'CreateProductType',
+        component: () => import('../views/Admin/views/add_type.vue')
+    },
+    {
+        path: '/admin/edit-product-type/:id',
+        name: 'EditProductType',
+        component: () => import('../views/Admin/views/edit_type.vue')
+    },
+    {
+        path: '/admin/create-commu',
+        name: 'CreateCommu',
+        component: () => import('../views/Admin/views/add_commu.vue')
+    },
+    {
+        path: '/admin/edit-commu/:id',
+        name: 'EditCommu',
+        component: () => import('../views/Admin/views/edit_commu.vue')
     },
     {
         path: '/:catchAll(.*)',

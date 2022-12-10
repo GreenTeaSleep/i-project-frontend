@@ -7,7 +7,6 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.min.js'
 
 import FontAwesomeIcon from './assets/fontawesome-icons'
-
 import router from './router'
 
 createApp(App)
