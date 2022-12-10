@@ -141,7 +141,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axios from "../../../services/axios";
 
 export default defineComponent({
   data() {
@@ -158,9 +158,23 @@ export default defineComponent({
     };
   },
   methods: {
-    signUp() {
+    async signUp() {
       if (this.password != this.cfPassword) {
         this.err = "msg";
+      } else {
+        const userCommuData = {
+          username: this.username,
+          password: this.password,
+          full_name: this.full_name,
+        };
+        const commuData = {
+          commu_name: this.commu_name,
+          mobile: this.mobile,
+          address: this.address,
+          regis_code: this.regis_code,
+        };
+        const result = await axios.post("/api/auth/user-commu", userCommuData);
+        const result2 = await axios.post("/api/commu", commuData);
       }
     },
     clearInput() {

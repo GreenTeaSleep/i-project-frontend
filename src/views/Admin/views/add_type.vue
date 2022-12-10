@@ -54,7 +54,6 @@ export default defineComponent({
         const result = await axios.post("/api/product-type", {
           title: this.title,
         });
-        console.log(this.title);
         console.log(result);
         this.$router.push("/admin");
       }

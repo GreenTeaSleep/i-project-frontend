@@ -17,22 +17,22 @@
           <th scope="col">Editor</th>
         </tr>
       </thead>
-      <tbody v-for="(item, index) in product_type">
+      <tbody v-for="({ title, id }, index) in product_type">
         <!-- https://getbootstrap.com/docs/5.2/utilities/vertical-align/ -->
         <tr class="align-middle">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ item.title }}</td>
+          <td>{{ title }}</td>
           <td>
             <button
               type="button"
-              @click="editData(item.id)"
+              @click="editData(id)"
               class="btn btn-outline-secondary"
             >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
             |
             <button
-              @click="deleteData(item.id)"
+              @click="deleteData(id)"
               type="button"
               class="btn btn-outline-danger"
             >
