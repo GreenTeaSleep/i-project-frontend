@@ -110,6 +110,7 @@
                     aria-label="Default select example"
                     name="amphure"
                     id="amphure"
+                    @change="changeFunc"
                   >
                     <option selected>--- เลือกอำเภอ ---</option>
                   </select>
@@ -203,31 +204,60 @@ export default defineComponent({
         const result2 = await axios.post("/api/commu", commuData);
       }
     },
+    changeFunc() {
+        var y = document.getElementById("tambon");
+        // @ts-ignore
+        console.log(y?.remove(0));
+        
+        // @ts-ignore
+        while (y?.options.length > 0) {
+          // @ts-ignore
+          y?.remove(0);
+        }
+        fetch(
+          "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json"
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            data.filter((item: { amphure_id: any; name_th: string; id: string; }) => {
+              var x = document.getElementById("amphure");
+              // @ts-ignore
+              if (item.amphure_id == x.options[x.selectedIndex].value) {
+                // console.log(item.name_th);
+
+                var option = document.createElement("option");
+                option.text = item.name_th;
+                option.value = item.id;
+                y?.appendChild(option);
+              }
+            });
+          });
+      },
     clearInput() {
       this.err = "";
     },
   },
-  // created() {
-  //   if (true) {
-  //     fetch(
-  //       "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json"
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         data.filter((item: { province_id: string; name_th: string; id: string; }) => {
-  //           if (
-  //             item.province_id == "70" &&
-  //             item.name_th != "ท้องถิ่นเทศบาลตำบลสำนักขาม"
-  //             ) {
-  //             var amphure = document.getElementById("amphure");
-  //             var option = document.createElement("option");
-  //             option.text = item.name_th;
-  //             option.value = item.id;
-  //             amphure?.appendChild(option)
-  //           }
-  //         });
-  //       });
-  //   }
-  // },
+  created() {
+    if (true) {
+      fetch(
+        "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json"
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          data.filter((item: { province_id: string; name_th: string; id: string; }) => {
+            if (
+              item.province_id == "70" &&
+              item.name_th != "ท้องถิ่นเทศบาลตำบลสำนักขาม"
+              ) {
+              var amphure = document.getElementById("amphure");
+              var option = document.createElement("option");
+              option.text = item.name_th;
+              option.value = item.id;
+              amphure?.appendChild(option)
+            }
+          });
+        });
+    }
+  },
 });
 </script>
