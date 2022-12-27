@@ -102,6 +102,32 @@
                   />
                 </div>
                 <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >อำเภอ</label
+                  >
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="amphure"
+                    id="amphure"
+                  >
+                    <option selected>--- เลือกอำเภอ ---</option>
+                  </select>
+                </div>
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >ตำบล</label
+                  >
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="tambon"
+                    id="tambon"
+                  >
+                    <option selected>--- เลือกตำบล ---</option>
+                  </select>
+                </div>
+                <div class="input-group mb-3">
                   <span class="input-group-text" id="inputGroup-sizing-default"
                     >ที่ตั้ง</span
                   >
@@ -181,5 +207,27 @@ export default defineComponent({
       this.err = "";
     },
   },
+  // created() {
+  //   if (true) {
+  //     fetch(
+  //       "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json"
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         data.filter((item: { province_id: string; name_th: string; id: string; }) => {
+  //           if (
+  //             item.province_id == "70" &&
+  //             item.name_th != "ท้องถิ่นเทศบาลตำบลสำนักขาม"
+  //             ) {
+  //             var amphure = document.getElementById("amphure");
+  //             var option = document.createElement("option");
+  //             option.text = item.name_th;
+  //             option.value = item.id;
+  //             amphure?.appendChild(option)
+  //           }
+  //         });
+  //       });
+  //   }
+  // },
 });
 </script>
