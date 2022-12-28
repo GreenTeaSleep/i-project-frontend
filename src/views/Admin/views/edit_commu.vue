@@ -18,6 +18,7 @@
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
                     v-model="username"
+                    disabled
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -86,7 +87,7 @@
                     class="form-control"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
-                    v-model="commu_name"
+                    v-model="name"
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -155,29 +156,35 @@ export default defineComponent({
       cfPassword: "",
       err: "",
       full_name: "",
-      commu_name: "",
+      name: "",
       mobile: "",
       address: "",
       regis_code: "",
     };
   },
   async mounted() {
-    const result = await axios.get("/api/commu/" + this.$route.params.id);
-    this.full_name = result.data.full_name;
-    this.commu_name = result.data.commu_name;
-    this.mobile = result.data.mobile;
-    this.address = result.data.address;
-    this.regis_code = result.data.regis_code;
-    console.log(result);
+    const dataCommu = await axios.get("/api/commu/" + this.$route.params.id);
+    const dataUserCommu = await axios.get("/api/auth/users-community/edit/" + this.$route.params.id);
+    this.username = dataUserCommu.data.username
+    this.full_name = dataUserCommu.data.full_name
+
+    this.name = dataCommu.data.name;
+    this.mobile = dataCommu.data.mobile;
+    this.address = dataCommu.data.address;
+    this.regis_code = dataCommu.data.regis_code;
   },
   methods: {
     async editCommu() {
       const result = await axios.put("/api/commu/" + this.$route.params.id, {
-        commu_name: this.commu_name,
+        name: this.name,
         address: this.address,
         mobile: this.mobile,
         regis_code: this.regis_code,
       });
+
+      const result2 = await axios.put('/api/auth/users-community/' + this.$route.params.id, {
+        full_name: this.full_name
+      })
       console.log(result);
       this.$router.push("/admin");
     },

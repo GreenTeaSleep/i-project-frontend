@@ -13,15 +13,15 @@
           <th scope="col">Editor</th>
         </tr>
       </thead>
-      <tbody v-for="({ commu_name, id, confirm_status }, index) in commu">
+      <tbody v-for="({ name, commu_id, confirm_status }, index) in commu">
         <!-- https://getbootstrap.com/docs/5.2/utilities/vertical-align/ -->
         <tr class="align-middle">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ commu_name }}</td>
+          <td>{{ name }}</td>
           <td>
             <button
               v-if="Number(confirm_status) === 1"
-              @click="test(confirm_status, id)"
+              @click="test(confirm_status, commu_id)"
               type="button"
               class="btn btn-outline-success"
             >
@@ -29,7 +29,7 @@
             </button>
             <button
               v-else
-              @click="test(confirm_status, id)"
+              @click="test(confirm_status, commu_id)"
               type="button"
               class="btn btn-outline-danger"
             >
@@ -38,7 +38,7 @@
             |
             <button
               type="button"
-              @click="editData(id)"
+              @click="editData(commu_id)"
               class="btn btn-outline-secondary"
             >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
@@ -82,7 +82,7 @@ export default defineComponent({
   },
   async mounted() {
     const result = await axios.get("/api/commu/confirmed");
-    console.log(result.data);
+    // console.log(result.data);
     this.commu = result.data;
     // alert(typeof this.product_type);
   },

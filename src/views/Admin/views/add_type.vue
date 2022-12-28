@@ -15,7 +15,7 @@
                   class="form-control"
                   aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-default"
-                  v-model="title"
+                  v-model="name"
                   required
                 />
               </div>
@@ -43,16 +43,16 @@ import axios from "../../../services/axios";
 export default defineComponent({
   data() {
     return {
-      title: "",
+      name: "",
     };
   },
   methods: {
     async addProductType() {
-      if (this.title === "") {
+      if (this.name === "") {
         alert("โปรดกรอกข้อมูล");
       } else {
-        const result = await axios.post("/api/product-type", {
-          title: this.title,
+        const result = await axios.post("/api/category", {
+          name: this.name,
         });
         console.log(result);
         this.$router.push("/admin");

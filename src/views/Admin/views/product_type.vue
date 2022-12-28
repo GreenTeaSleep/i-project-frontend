@@ -17,22 +17,22 @@
           <th scope="col">Editor</th>
         </tr>
       </thead>
-      <tbody v-for="({ title, id }, index) in product_type">
+      <tbody v-for="({ name, category_id }, index) in product_type">
         <!-- https://getbootstrap.com/docs/5.2/utilities/vertical-align/ -->
         <tr class="align-middle">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ title }}</td>
+          <td>{{ name }}</td>
           <td>
             <button
               type="button"
-              @click="editData(id)"
+              @click="editData(category_id)"
               class="btn btn-outline-secondary"
             >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
             |
             <button
-              @click="deleteData(id)"
+              @click="deleteData(category_id)"
               type="button"
               class="btn btn-outline-danger"
             >
@@ -58,7 +58,8 @@ export default defineComponent({
   methods: {
     async deleteData(id: number) {
       if (confirm("You want to delete the data right?") === true) {
-        const result = await axios.delete("/api/product-type/" + id.toString());
+        console.log(id)
+        const result = await axios.delete("/api/category/" + id.toString());
         this.$router.go(0);
       }
     },
@@ -67,7 +68,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    const result = await axios.get("/api/product-type");
+    const result = await axios.get("/api/category");
     this.product_type = result.data;
     // alert(typeof this.product_type);
   },

@@ -86,7 +86,7 @@
                     class="form-control"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
-                    v-model="commu_name"
+                    v-model="name"
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -179,7 +179,7 @@ export default defineComponent({
       cfPassword: "",
       err: "",
       full_name: "",
-      commu_name: "",
+      name: "",
       mobile: "",
       address: "",
       regis_code: "",
@@ -196,15 +196,18 @@ export default defineComponent({
           username: this.username,
           password: this.password,
           full_name: this.full_name,
-        };
-        const commuData = {
-          commu_name: this.commu_name,
-          mobile: this.mobile,
+
+          name: this.name,
           address: this.address,
+          mobile: this.mobile,
           regis_code: this.regis_code,
+          amp: this.amp,
+          tam: this.tam,
+          confirm_status: 1,
         };
-        const result = await axios.post("/api/auth/user-commu", userCommuData);
-        const result2 = await axios.post("/api/commu", commuData);
+        const result = await axios.post("/api/auth/users-community", userCommuData);
+        console.log(result)
+        this.$router.push("/admin");
       }
     },
     changeFunc() {

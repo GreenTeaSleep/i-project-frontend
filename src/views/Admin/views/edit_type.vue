@@ -15,7 +15,7 @@
                   class="form-control"
                   aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-default"
-                  v-model="title"
+                  v-model="name"
                 />
               </div>
               <div class="text-end my-5">
@@ -42,26 +42,23 @@ import axios from "../../../services/axios";
 export default defineComponent({
   data() {
     return {
-      title: "",
+      name: "",
     };
   },
   async mounted() {
     const result = await axios.get(
-      "/api/product-type/" + this.$route.params.id
+      "/api/category/" + this.$route.params.id
     );
-    this.title = result.data.title;
-    console.log(result);
+    this.name = result.data.name;
   },
   methods: {
     async editProductType() {
       const result = await axios.put(
-        "/api/product-type/" + this.$route.params.id,
+        "/api/category/" + this.$route.params.id,
         {
-          title: this.title,
+          name: this.name,
         }
       );
-      console.log(this.title);
-      console.log(result);
       this.$router.push("/admin");
     },
   },
