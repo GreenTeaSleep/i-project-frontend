@@ -112,7 +112,7 @@
                     id="amphure"
                     @change="changeFunc"
                   >
-                    <option selected>--- เลือกอำเภอ ---</option>
+                    <option disabled selected>--- เลือกอำเภอ ---</option>
                   </select>
                 </div>
                 <div class="input-group mb-3">
@@ -124,6 +124,7 @@
                     aria-label="Default select example"
                     name="tambon"
                     id="tambon"
+                    @change="changeFunc2"
                   >
                     <option selected>--- เลือกตำบล ---</option>
                   </select>
@@ -182,6 +183,8 @@ export default defineComponent({
       mobile: "",
       address: "",
       regis_code: "",
+      amp: "",
+      tam: "",
     };
   },
   methods: {
@@ -205,34 +208,47 @@ export default defineComponent({
       }
     },
     changeFunc() {
-        var y = document.getElementById("tambon");
+      var y = document.getElementById("tambon");
+      var x = document.getElementById("amphure");
+      // @ts-ignore
+      while (y?.options.length > 0) {
         // @ts-ignore
-        console.log(y?.remove(0));
-        
-        // @ts-ignore
-        while (y?.options.length > 0) {
-          // @ts-ignore
-          y?.remove(0);
-        }
-        fetch(
-          "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json"
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            data.filter((item: { amphure_id: any; name_th: string; id: string; }) => {
-              var x = document.getElementById("amphure");
+        y?.remove(0);
+      }
+      fetch(
+        "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json"
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          data.filter(
+            (item: { amphure_id: any; name_th: string; id: string }) => {
               // @ts-ignore
               if (item.amphure_id == x.options[x.selectedIndex].value) {
-                // console.log(item.name_th);
-
                 var option = document.createElement("option");
                 option.text = item.name_th;
                 option.value = item.id;
                 y?.appendChild(option);
               }
-            });
-          });
-      },
+            }
+          );
+          // @ts-ignore
+          this.amp = x?.options[x?.selectedIndex].text;
+          // @ts-ignore
+          this.tam = y?.options[y?.selectedIndex].text;
+          // @ts-ignore
+          console.log(`อำเภอ: ${x?.options[x?.selectedIndex].text}\nตำบล: ${y?.options[y?.selectedIndex].text}`);
+        });
+    },
+    changeFunc2() {
+      var y = document.getElementById("tambon");
+
+      // @ts-ignore
+      this.tam = y?.options[y?.selectedIndex].text;
+      // @ts-ignore
+      // console.log(`ตำบล: ${y?.options[y?.selectedIndex].text}`);
+
+      // alert(`AMP: ${this.amp}, TAM: ${this.tam}`)
+    },
     clearInput() {
       this.err = "";
     },
@@ -244,18 +260,20 @@ export default defineComponent({
       )
         .then((res) => res.json())
         .then((data) => {
-          data.filter((item: { province_id: string; name_th: string; id: string; }) => {
-            if (
-              item.province_id == "70" &&
-              item.name_th != "ท้องถิ่นเทศบาลตำบลสำนักขาม"
+          data.filter(
+            (item: { province_id: string; name_th: string; id: string }) => {
+              if (
+                item.province_id == "70" &&
+                item.name_th != "ท้องถิ่นเทศบาลตำบลสำนักขาม"
               ) {
-              var amphure = document.getElementById("amphure");
-              var option = document.createElement("option");
-              option.text = item.name_th;
-              option.value = item.id;
-              amphure?.appendChild(option)
+                var amphure = document.getElementById("amphure");
+                var option = document.createElement("option");
+                option.text = item.name_th;
+                option.value = item.id;
+                amphure?.appendChild(option);
+              }
             }
-          });
+          );
         });
     }
   },
